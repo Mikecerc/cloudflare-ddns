@@ -32,6 +32,7 @@ async function updateRecord(domain: string, dnsRecordName: string, email: string
         response = await fetch(`https://api.cloudflare.com/client/v4/user/tokens/verify`, { headers: headers });
 
         if (response.status !== 200) {
+            console.error('Error: Invalid credentials');
             return Promise.reject(response);
         }
         //get the zone id
@@ -70,6 +71,7 @@ async function updateRecord(domain: string, dnsRecordName: string, email: string
             console.log('No change in IP');
         }
     } catch (error) {
-        return Promise.reject()
+        console.error('General error');
+        return Promise.reject(error)
     }
 }
